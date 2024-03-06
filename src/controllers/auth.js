@@ -1,0 +1,104 @@
+const User = require("../models/user");
+const Token = require("../models/token");
+const jwb = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
+module.exports = {
+  login: async (req, res) => {
+    const { username, password, email } = req.body;
+    if (username && password) {
+      const user = await User.findOne(username);
+      //bcrypt.compareSync(myPlaintextPassword, hash); // true
+      const pass = bcrypt.compareSync(password, 10);
+      if (user && pass) {
+        //token
+        if (user.isActive) {
+          let tokenData = await Token.findOne({ userId: user._id });
+          if (!tokenData) {
+            const tokenKey = bcrypt.hashSync(user._id, 10);
+            tokenData = await Token.create({
+              userId: user._id,
+              token: tokenKey,
+            });
+          }
+
+          //jwt
+          const accestoken = jwb.sign({ data: user }, process.env.ACCESS_KEY, {
+            expiresIn: 60 * 60 * 60,
+          });
+
+          const refreshtoken = jwb.sign(
+            { id: user._id },
+            process.env.REFRESH_KEY,
+            { expiresIn: 60 * 60 * 60 }
+          );
+
+          res.status(200).send({
+            error: false,
+            token: tokenData.token,
+            bearer: {
+              accestoken,
+              refreshtoken,
+            },
+            user,
+          });
+        } else {
+          res.send("isActive false");
+        }
+      } else {
+        res.status(404).send({
+          error: true,
+          message: "user oder pass fasle",
+        });
+      }
+    } else {
+      res.status(404).send({
+        error: true,
+        message: "usernem password achtung",
+      });
+    }
+  },
+  refresh: async (req, res) => {
+
+    const refresh =await req.body?.bearer?.refreshtoken
+
+    if(refresh){
+        const data = jwb.verify(refresh,process.env.REFRESH_KEY)
+        const { id} = data
+        
+           const user = await User.findOne({_id:id})
+           if(user && user.isActive){
+            const accestoken = jwb.sign({data:user} ,process.env.ACCESS_KEY,
+                { expiresIn: "30m" })
+                res.send(200).send({
+                    error:"false",
+                    bearer:{ accestoken}
+                })
+
+           }else{
+            res.send("isactive oder user?")
+           }
+
+         
+    
+
+
+    }else{
+        res.send("rerreh token baaammmm")
+    }
+
+
+
+
+
+  },
+  logout: async (req, res) => {
+
+    const auth = req.headers?.authorization || null; 
+     const tokenKey =  auth ?  auth.split(" ") : null
+
+     const data = await Token.deleteOne({token:tokenKey})
+     res.send("baba sildik")
+
+  },
+};
