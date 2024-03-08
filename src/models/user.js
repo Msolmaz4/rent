@@ -24,7 +24,7 @@ const UserSchema = new mongoose.Schema(
           return password.length >= 4;
         },
         message: "min 4 carakter",
-      },
+      },},
       email: {
         type: String,
         required: true,
@@ -39,12 +39,12 @@ const UserSchema = new mongoose.Schema(
       firstName: {
         type: String,
         trim: true,
-        required: true,
+        
         minlength: [3, "mncarake3"],
       },
       lastname: {
         type: String,
-        trim: true,
+       
       },
       isActive: {
         type: String,
@@ -54,7 +54,7 @@ const UserSchema = new mongoose.Schema(
         type: String,
         default: false,
       },
-    },
+    
   },
   {
     timestamps: true,

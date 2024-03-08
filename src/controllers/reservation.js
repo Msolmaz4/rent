@@ -17,7 +17,7 @@ module.exports = {
             `
         */
 
-    const data = await res.getModelList(Reservation);
+    const data = await res.getModelList(Reservation,{},["userId","carId"]);
 
     res.status(200).send({
       error: false,
@@ -52,9 +52,10 @@ module.exports = {
     /*
             #swagger.tags = ["Reservations"]
             #swagger.summary = "Get Single Reservation"
-        */
 
-    const data = await Reservation.findOne({ _id: req.params.id });
+        */
+   
+    const data = await Reservation.findOne({ _id: req.params.id }).populate(["userId","cardId"]);
 
     res.status(200).send({
       error: false,

@@ -4,14 +4,15 @@ require("dotenv").config()
 const PORT = process.env.PORT || 8003
 
 app.use(express.json());
-app.use(require("./src/middelerwares/findSearch"))
-
-
 
 require("./src/config/db")
+
+app.use(require("./src/middelerwares/authentication"))
+app.use(require("./src/middelerwares/findSearch"))
+
 app.use(require('./src/routes'))
 
-
+ //require('./src/helpers/sync')()
 
 
 app.listen(PORT,()=>console.log("indexteyiz"))

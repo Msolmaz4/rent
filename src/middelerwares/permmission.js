@@ -2,13 +2,15 @@ module.exports={
   
     isLogin:(req,res,next)=>{
         if(req.user){
+            console.log(req.user,"islogin")
             next()
         }else{
             res.send("islogin patladi")
         }
     },
     isAdmin : (req,res,next)=>{
-        if(req.user && req.user.isAdmin){
+        if(req.user && req.user?.isAdmin && req.user?.isActive){
+            console.log(req.user?.isActive,"gggggggggggggggg")
             next()
         }
         else{

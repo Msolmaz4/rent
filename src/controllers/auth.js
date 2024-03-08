@@ -6,16 +6,19 @@ const bcrypt = require("bcrypt");
 module.exports = {
   login: async (req, res) => {
     const { username, password, email } = req.body;
+    console.log(username,password)
     if (username && password) {
-      const user = await User.findOne(username);
+      const user = await User.findOne({username});
+      console.log(user)
       //bcrypt.compareSync(myPlaintextPassword, hash); // true
-      const pass = bcrypt.compareSync(password, 10);
+      const pass = bcrypt.compareSync(password,user.password);
       if (user && pass) {
         //token
+        console.log("token olusacak")
         if (user.isActive) {
           let tokenData = await Token.findOne({ userId: user._id });
           if (!tokenData) {
-            const tokenKey = bcrypt.hashSync(user._id, 10);
+            const tokenKey = bcrypt.hashSync(user._id.toString(), 10);
             tokenData = await Token.create({
               userId: user._id,
               token: tokenKey,
