@@ -23,7 +23,9 @@ module.exports = {
     });
   },
   read: async (req, res) => {
-   // const id = req.user?.isAdmin ? req.params.id : req.user.id;
+    const id = req.user?.isAdmin ? req.params?.id : req.user?.id;
+    console.log(req.user?.id ,"kobntolid")
+    console.log(id,"read")
     //         let filters = {}
     // if(!req.user?.isAdmin){
     //     filters = {_id:req.params.id}
@@ -31,7 +33,7 @@ module.exports = {
     // }
 
     //const data = await User.findOne({...filters,_id:id})
-    const data = await User.findOne({ _id: req.params?.id });
+    const data = await User.findOne({ _id:id });
 
     res.status(200).send({
       error: false,

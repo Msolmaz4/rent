@@ -47,11 +47,11 @@ const UserSchema = new mongoose.Schema(
        
       },
       isActive: {
-        type: String,
+        type: Boolean,
         default: true,
       },
       isAdmin: {
-        type: String,
+        type: Boolean,
         default: false,
       },
     

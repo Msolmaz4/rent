@@ -4,7 +4,7 @@ const user = require("../controllers/user")
 const permission = require("../middelerwares/permmission")
 
 router.route("/")
-.get(permission.isAdmin,user.list)
+.get(permission.isLogin,permission.isAdmin,user.list)
 .post(user.create)
 
 router.route("/:id")
