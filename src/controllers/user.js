@@ -41,7 +41,17 @@ module.exports = {
     });
   },
   update: async (req, res) => {
-    const data = await User.updateOne({ _id: req.params?.id }, req.body, {
+  if(!req.user?.isAdmin) req.params.id = req.user?._id
+  let dat
+  if(!req.user?.isAdmin){
+   dat ={...req.body,isAdmin:false}
+   console.log(dat,"dattttttttttttttttttt")
+  }
+  else{
+    dat=req.body
+  }
+ 
+    const data = await User.updateOne({ _id: req.params?.id }, dat, {
       runValidators: true,
     });
 

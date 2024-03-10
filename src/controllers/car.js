@@ -14,30 +14,44 @@ list:async(req,res)=>{
 
 
     let filters = {}
-//     if(!req.user?.Admin) filters.inPublish = true
+     if(!req.user?.isAdmin) filters.isPublish = true
+
 
 // const { start:getStartData,end:getEndDate} = req.query
 
-//   if(getStartData && getEndDate){
-//     const reservedCards = await Reservation.find({
-//         $nor:[
-//             {startDate:{$gt:getEndDate}},
-//             {endDate:{$lt:getStartData}}
+
+// if (getStartDate && getEndDate) {
+
+//     const reservedCars = await Reservation.find({
+//         $nor: [
+//             { startDate: { $gt: getEndDate } },
+//             { endDate: { $lt: getStartDate } }
 //         ]
-//     },{_id:0,cardId:1}
-    
-//     ).distinct("cardId")
-//   }
-//   if(reservedCards.length){
-//     filters._id = {$nin:reservedCards}
-//   }
+//     }, { _id: 0, carId: 1 }).distinct('carId')
+//     /*
+//     distinct() convert from:
+//     [
+//         { carId: new ObjectId("65352f518a9ea121b1ca5001") },
+//         { carId: new ObjectId("65352f518a9ea121b1ca5002") }
+//     ]
+//     to:
+//     [
+//         new ObjectId("65352f518a9ea121b1ca5001"),
+//         new ObjectId("65352f518a9ea121b1ca5002")
+//     ]
+//     */
+//     if (reservedCars.length) {
+//         filters._id = { $nin: reservedCars }
+//     }
+//     // console.log(filters)
+// }
 
 
     const data = await res.getModelList(Car,filters)
     res.status(200).send({
         data,
         error:false,
-        details:await res.getModelListDetails(Car,filters)
+        details:await res.getModelListDetails(Car)
     })
 
 },

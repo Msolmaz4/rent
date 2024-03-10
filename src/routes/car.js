@@ -4,16 +4,19 @@ const router = require("express").Router()
 //burda admin ile ilgili yap hepsini 
 
 const car = require("../controllers/car")
-const { isAdmin } = require("../middelerwares/permmission")
+const { isAdmin ,isLogin} = require("../middelerwares/permmission")
 //URL cars
 //router.use(isAdmin)
 
-router.route("/").get(car.list).post(car.create)
+router.route("/")
+.get(car.list)
+.post(isAdmin,car.create)
+
 router.route("/:id")
   .get(car.read)
-  .put(car.update)
-  .patch(car.update)
-  .delete(car.delete);
+  .put(isAdmin,car.update)
+  .patch(isAdmin,car.update)
+  .delete(isAdmin,car.delete);
 
 
 
