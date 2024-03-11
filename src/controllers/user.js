@@ -1,7 +1,7 @@
 
 
 const User = require("../models/user");
-
+const email = require("../helpers/email")
 module.exports = {
   list: async (req, res) => {
     console.log("losy");
@@ -16,6 +16,9 @@ module.exports = {
   },
   create: async (req, res) => {
     const data = await User.create(req.body);
+ // email(req.body.email,"creat",req.body)
+  email(req.body.email,"creat",JSON.stringify(req.body))
+
 
     res.status(200).send({
       error: false,
