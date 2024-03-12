@@ -45,9 +45,10 @@ list:async(req,res)=>{
 //     }
 //     // console.log(filters)
 // }
-
-
-    const data = await res.getModelList(Car,filters)
+  console.log(req.body)
+    const plk = await Car.findOne(req.body.plateNumber)
+    console.log(plk,"plaka")
+    const data = await res.getModelList(Car,filters,"images")
     res.status(200).send({
         data,
         error:false,
@@ -57,14 +58,30 @@ list:async(req,res)=>{
 },
 create:async(req,res)=>{
 
-
+   //req.body.images = req.file.originalname
+   //req.body.images = req.file.originalname burda dikaktedilecek olay uplaos arratu vet asingle olmasi
     
-    const data = await Car.create(req.body)
+     console.log(req.file,"resim")
+   const plk = await Car.findOne({plateNumber:req.body?.plateNumber})
+   //console.log(plk,"plateNumber")
+  if(!plk){
+       req.body.image = req.file.originalname
+      const data = await Car.create(req.body)
     res.status(201).send({
         error:false,
         data
     })
 
+  }else{
+    
+    res.status(201).send({
+        error:false,
+        message:"leider iesePlakat ist verfugbar"
+    })
+  }
+
+
+  
 },
 read:async(req,res)=>{
 
@@ -80,14 +97,14 @@ update:async(req,res)=>{
 
 
 
-
+    req.body.images = req.files.originalname
 
 const data = await Car.updateOne({_id:req.params.id},req.body,{runValidators:true})
 
 res.status(200).send({
     error:false,
     data,
-    new:await Cat.findOne({_id:req.params.id})
+    new:await Car.findOne({_id:req.params?.id})
 })
 },
 delete:async(req,res)=>{

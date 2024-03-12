@@ -49,6 +49,11 @@ const CarSchema = new mongoose.Schema({
         ref:"User",
         requred:true
      },
+     image: {
+      type: String,
+      
+      trim: true
+  },
 
 },{
  collection:"cars",timestamps:true

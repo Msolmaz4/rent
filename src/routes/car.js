@@ -7,10 +7,11 @@ const car = require("../controllers/car")
 const { isAdmin ,isLogin} = require("../middelerwares/permmission")
 //URL cars
 //router.use(isAdmin)
+const upload = require("../middelerwares/upload")
 
 router.route("/")
 .get(car.list)
-.post(isAdmin,car.create)
+.post(upload.single("car"),car.create)
 
 router.route("/:id")
   .get(car.read)

@@ -15,7 +15,7 @@ module.exports = function(to,subject,message){
         //from:"msolmaz83@gmail.com",
         to:to,
         subject:subject,
-        text:message
+        text:message 
     },(err,suc)=>{
     err ? console.log("err",err):console.log("suc",suc)
     })
