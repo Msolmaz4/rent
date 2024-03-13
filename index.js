@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 8003
 
 app.use(express.json());
 
-require("./src/config/db")
+require("./src/configs/db")
 app.use(require("./src/middelerwares/loger"))
 app.use(require("./src/middelerwares/authentication"))
 app.use(require("./src/middelerwares/findSearch"))
