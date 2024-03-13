@@ -19,9 +19,7 @@ fieldSize:1024*1024*20
         filename:(req,file,cb)=>{
             cb(null,file.originalname)
         },
-        destination:(req,res,cb)=>{
-            cb(null,"uploads/")
-        }
+        destination: './uploads',
     })
 
 })

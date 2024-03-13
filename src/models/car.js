@@ -49,7 +49,7 @@ const CarSchema = new mongoose.Schema({
         ref:"User",
         requred:true
      },
-     image: {
+     images: {
       type: String,
       
       trim: true
