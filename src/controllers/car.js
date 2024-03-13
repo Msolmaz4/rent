@@ -51,7 +51,9 @@ module.exports = {
     const plk = await Car.findOne({ plateNumber: req.body?.plateNumber });
     //console.log(plk,"plateNumber")
     if (!plk) {
-      req.body.images = req.file.originalname;
+      req.body.images = req.files.map(file => file.originalname); 
+// bu single olursa
+      //req.body.images = req.file.originalname;
       const data = await Car.create(req.body);
       res.status(201).send({
         error: false,

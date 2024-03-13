@@ -50,7 +50,7 @@ const CarSchema = new mongoose.Schema({
         requred:true
      },
      images: {
-      type: String,
+      type: [String],
       
       trim: true
   },
