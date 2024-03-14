@@ -7,3 +7,5 @@
 ::ffff:127.0.0.1 - - [13/Mar/2024:13:51:57 +0000] "GET /documents/swagger/swagger-ui-bundle.js HTTP/1.1" 200 1415333 "http://127.0.0.1:8000/documents/swagger/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 ::ffff:127.0.0.1 - - [13/Mar/2024:13:52:20 +0000] "GET /documents/redoc HTTP/1.1" 200 668 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 ::ffff:127.0.0.1 - - [13/Mar/2024:13:52:21 +0000] "GET /documents/json HTTP/1.1" 200 19927 "http://127.0.0.1:8000/documents/redoc" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+::1 - - [13/Mar/2024:15:42:47 +0000] "POST /cars HTTP/1.1" 201 299 "-" "PostmanRuntime/7.37.0"
+::1 - - [13/Mar/2024:15:43:07 +0000] "GET /cars HTTP/1.1" 200 5725 "-" "PostmanRuntime/7.37.0"
